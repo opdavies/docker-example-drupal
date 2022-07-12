@@ -1,0 +1,8 @@
+services:
+  php-fpm:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  web:
+    ports:
+      - "80:80"
