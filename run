@@ -3,7 +3,7 @@
 set -e
 
 function cmd {
-  _dc php-fpm "${@}"
+  _dc php "${@}"
 }
 
 function composer {
@@ -23,7 +23,7 @@ function help {
 }
 
 function _dc {
-  docker-compose run --rm "${@}"
+  docker compose run --rm "${@}"
 }
 
 eval "${@:-help}"

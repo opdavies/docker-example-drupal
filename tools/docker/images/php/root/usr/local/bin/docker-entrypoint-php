@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+[[ -f composer.json && ! -d vendor ]] && composer install
+
+eval "$@"

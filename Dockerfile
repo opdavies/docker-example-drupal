@@ -1,52 +1,50 @@
-ARG PHP_VERSION=8.1
+FROM php:8.1-fpm-bullseye AS base
 
-FROM php:${PHP_VERSION}-fpm-bullseye AS base
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN which composer && composer -V
 
-###
+WORKDIR /app
+
+ENV PATH="${PATH}:/app/vendor/bin"
+
+COPY composer.* ./
+
+################################################################################
 
 FROM base AS build
 
-ENV PATH=${PATH}:/var/www/html/vendor/bin
+RUN apt-get update -yqq \
+  && apt-get install -yqq --no-install-recommends \
+    git libpng-dev libzip-dev mariadb-client unzip
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN docker-php-ext-install gd pdo_mysql zip
 
-WORKDIR /var/www/html
 
-RUN useradd --create-home app \
-  && chown app:app -R /var/www/html \
-  && apt-get update -yqq \
-  && apt-get install -yqq \
-    git \
-    libpng-dev \
-    mariadb-client \
-    unzip \
-  && rm -fr /var/lib/apt/lists/* \
-  && pecl install xdebug \
-  && docker-php-ext-install \
-    gd \
-    opcache \
-    pdo_mysql \
-  && docker-php-ext-enable \
-    xdebug
+RUN composer validate
+RUN composer install
 
 COPY tools/docker/images/php/root /
 
-COPY --chown=app:app composer.* ./
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint-php"]
+CMD ["php-fpm"]
 
-USER app
-RUN composer install --no-dev --prefer-dist --optimize-autoloader
+################################################################################
 
-COPY --chown=app:app . .
+FROM base AS test
 
-###
+COPY . .
 
-FROM build AS test
+RUN parallel-lint src --no-progress \
+  && phpcs -vv \
+  && phpstan \
+  && phpunit --testdox
 
-# RUN composer install \
-#   && phpunit
+################################################################################
 
-###
+FROM nginx:1 as web
 
-FROM build AS production
+EXPOSE 8080
 
-RUN composer install --no-dev --prefer-dist --optimize-autoloader
+WORKDIR /app
+
+COPY tools/docker/images/web/root /

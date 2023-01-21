@@ -1,30 +1,70 @@
+x-app: &default-app
+  volumes:
+    - "${DOCKER_WEB_VOLUME:-./web:/app/web}"
+  env_file:
+    - .env
+  restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+  networks:
+    - default
+  deploy:
+    resources:
+      limits:
+        cpus: "${DOCKER_MYSQL_CPUS:-0}"
+        memory: "${DOCKER_MYSQL_MEMORY:-0}"
+  labels:
+    - "traefik.enabled=false"
+  tty: true
+
 services:
   web:
-    image: caddy
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - .:/var/www/html
-    ports:
-      - "${DOCKER_WEB_PORT:-127.0.0.1:80}:80"
-    environment:
-      SERVER_NAME: "${SERVER_NAME:-:80}"
-
-  php-fpm:
-    image: "ghcr.io/opdavies/docker-drupal-example-php-fpm:${DOCKER_TAG:-latest}"
+    <<: *default-app
     build:
       context: .
-    volumes:
-      - .:/var/www/html
+      target: web
+    depends_on:
+      - php
+    networks:
+      - default
+      - web
+    labels:
+      - "traefik.docker.network=traefik_proxy"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(
+          `${COMPOSE_PROJECT_NAME}.localhost`,
+          )"
+    profiles: [web]
 
-  mysql:
+  php:
+    <<: *default-app
+    build:
+      context: .
+      target: build
+    depends_on:
+      - database
+    profiles: [php]
+
+  database:
     image: mariadb:10
+    deploy:
+      resources:
+        limits:
+          cpus: "${DOCKER_MYSQL_CPUS:-0}"
+          memory: "${DOCKER_MYSQL_MEMORY:-0}"
     volumes:
       - db-data:/var/lib/mysql
+    env_file:
+      - .env
+    labels:
+      - "traefik.enabled=false"
     environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: true
       MYSQL_DATABASE: drupal
-      MYSQL_RANDOM_ROOT_PASSWORD: 'true'
       MYSQL_PASSWORD: drupal
       MYSQL_USER: drupal
+    profiles: [database]
 
 volumes:
   db-data: {}
+
+networks:
+  web:
+    name: traefik_proxy

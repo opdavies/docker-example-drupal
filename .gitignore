@@ -1,4 +1,5 @@
 /.editorconfig
+/.env
 /.gitattributes
 /vendor/
 /web/.csslintrc
@@ -13,6 +14,7 @@
 /web/example.gitignore
 /web/index.php
 /web/modules/README.txt
+/web/modules/contrib/
 /web/profiles/README.txt
 /web/robots.txt
 /web/sites/*/files/
@@ -27,5 +29,6 @@
 /web/sites/example.sites.php
 /web/sites/simpletest/
 /web/themes/README.txt
+/web/themes/contrib/
 /web/update.php
 /web/web.config
