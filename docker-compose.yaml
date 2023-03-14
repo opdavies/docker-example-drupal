@@ -3,7 +3,7 @@
 drupal-project
 x-app: &default-app
   volumes:
-- "${DOCKER_WEB_VOLUME:-./:/app}"
+    - "${DOCKER_WEB_VOLUME:-./1:/app}"
   env_file:
     - .env
   restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
