@@ -2,7 +2,7 @@
 
 x-app: &default-app
   volumes:
-    - "${DOCKER_WEB_VOLUME:-./1:/app}"
+    - "${DOCKER_WEB_VOLUME:-./web:/app/web}"
   env_file:
     - .env
   restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
