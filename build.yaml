@@ -16,6 +16,9 @@ php:
   phpstan:
     level: max
 
+drupal:
+  docroot: web
+
 docker-compose:
   services:
     database: ~
@@ -49,4 +52,3 @@ dockerfile:
         - phpcs -vv
         - phpstan
         - phpunit --testdox
-
