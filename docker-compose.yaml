@@ -29,8 +29,7 @@ x-app: &default-app
 
 services:
   web:
-    <<: *default-app
-    <<: *default-proxy
+    <<: [*default-proxy, *default-app]
     build:
       context: .
       target: web
