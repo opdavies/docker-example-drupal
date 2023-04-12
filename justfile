@@ -25,5 +25,3 @@ _exec +args:
 
 _run service command *args:
   docker compose run --rm --no-deps --entrypoint {{ command }} --tty {{ service }} {{ args }}
-
-# vim: ft=just
