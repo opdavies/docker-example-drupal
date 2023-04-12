@@ -6,6 +6,11 @@ default:
 composer *args:
   just _exec php composer {{ args }}
 
+alias phpunit := test
+
+test *args:
+  just _run phpunit {{ args }}
+
 drush *args:
   just _exec php drush {{ args }}
 
@@ -17,3 +22,6 @@ install *args:
 
 _exec +args:
   docker compose exec {{ args }}
+
+_run command *args:
+  docker compose run --rm --no-deps --entrypoint {{ command }} --tty php {{ args }}
