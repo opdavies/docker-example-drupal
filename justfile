@@ -24,4 +24,9 @@ _exec +args:
   docker compose exec {{ args }}
 
 _run service command *args:
-  docker compose run --rm --no-deps --entrypoint {{ command }} --tty {{ service }} {{ args }}
+  docker compose run \
+    --entrypoint {{ command }} \
+    --no-deps \
+    --rm \
+    --tty \
+    {{ service }} {{ args }}
