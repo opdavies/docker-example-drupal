@@ -73,3 +73,5 @@ volumes:
 networks:
   web:
     name: traefik_proxy
+
+# vim: ft=yaml

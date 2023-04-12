@@ -9,7 +9,7 @@ composer *args:
 alias phpunit := test
 
 test *args:
-  just _run phpunit {{ args }}
+  just _run php phpunit {{ args }}
 
 drush *args:
   just _exec php drush {{ args }}
@@ -23,5 +23,7 @@ install *args:
 _exec +args:
   docker compose exec {{ args }}
 
-_run command *args:
-  docker compose run --rm --no-deps --entrypoint {{ command }} --tty php {{ args }}
+_run service command *args:
+  docker compose run --rm --no-deps --entrypoint {{ command }} --tty {{ service }} {{ args }}
+
+# vim: ft=just
