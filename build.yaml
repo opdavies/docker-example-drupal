@@ -52,3 +52,6 @@ dockerfile:
         - phpcs -vv
         - phpstan
         - phpunit --testdox
+
+experimental:
+  useNewDatabaseCredentials: true
