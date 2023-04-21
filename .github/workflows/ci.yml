@@ -38,6 +38,7 @@ jobs:
 
           just composer install --quiet --no-progress
 
-          # TODO: add PHPCS and PHPStan
+          # TODO: add PHPCS
 
+          just _run php phpstan analyze
           just test --testdox --colors=always
