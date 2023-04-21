@@ -15,6 +15,9 @@ final class ExamplePageController {
     private LoggerChannelFactoryInterface $logger
   ) {}
 
+  /**
+   * @return array<string,mixed>
+   */
   public function __invoke(): array {
     $this->logger->get('example')->info('Example page viewed.');
 
