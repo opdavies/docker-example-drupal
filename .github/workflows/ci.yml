@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+env:
+  COMPOSE_DOCKER_CLI_BUILD: 1
+  DOCKER_BUILDKIT: 1
+  DOCKER_UID: 1001
+
+jobs:
+  build_and_test:
+    name: Build and test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install just
+        run: |
+          curl --proto '=https' \
+            --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
+
+      - name: Checkout the code
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # v2.3.4
+
+      - name: Build and test
+        run: |
+          docker compose version
+
+          cp --no-clobber .env.example .env
+
+          docker compose build --progress plain
+
+          docker compose up --detach
+          docker compose logs
+
+          just composer install --quiet --no-progress
+
+          # TODO: add PHPCS and PHPStan
+
+          just test --testdox --colors=always

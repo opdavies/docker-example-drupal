@@ -28,5 +28,5 @@ _run service command *args:
     --entrypoint {{ command }} \
     --no-deps \
     --rm \
-    --tty \
+    -T \
     {{ service }} {{ args }}

@@ -54,4 +54,5 @@ dockerfile:
         - phpunit --testdox
 
 experimental:
+  createGitHubActionsConfiguration: true
   useNewDatabaseCredentials: true
