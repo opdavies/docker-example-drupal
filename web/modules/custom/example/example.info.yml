@@ -1,0 +1,5 @@
+name: Example module
+description: TODO
+type: module
+core_version_requirement: ^9||^10
+package: Example

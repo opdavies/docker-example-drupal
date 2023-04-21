@@ -1,0 +1,7 @@
+drupal-module-template.example:
+  path: /@opdavies/drupal-module-template
+  defaults:
+    _controller: Drupal\example\Controller\ExamplePageController
+    _title: Example page
+  requirements:
+    _permission: access content
