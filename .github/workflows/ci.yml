@@ -39,5 +39,5 @@ jobs:
           just composer install --quiet --no-progress
 
           just _run php phpcs
-          just _run php phpstan analyze
+          just _run php phpstan analyze --no-progress --memory-limit=512M
           just test --testdox --colors=always
