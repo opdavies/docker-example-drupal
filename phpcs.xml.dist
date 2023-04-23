@@ -3,8 +3,11 @@
 
 <ruleset name="docker-example-drupal coding standards">
    <description>PHPCS configuration file for docker-example-drupal.</description>
-   <file>src</file>
+
+   
    <arg value="np"/>
+
       <rule ref="Drupal"/>
       <rule ref="DrupalPractice"/>
+   
    </ruleset>
