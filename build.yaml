@@ -12,7 +12,10 @@ database:
 php:
   version: 8.1-fpm-bullseye
   phpcs:
-    standard: Drupal,DrupalPractice
+    paths:
+      - web/modules/custom
+    standards:
+      - Drupal
   phpstan:
     level: max
     paths:
