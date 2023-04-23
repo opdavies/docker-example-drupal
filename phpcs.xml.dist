@@ -9,6 +9,7 @@
    <arg value="np"/>
 
       <rule ref="Drupal"/>
+      <rule ref="DrupalPractice"/>
    
       <rule ref="Drupal">
      <exclude name="Drupal.Commenting.ClassComment.Missing"/>

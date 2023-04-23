@@ -16,6 +16,7 @@ php:
       - web/modules/custom
     standards:
       - Drupal
+      - DrupalPractice
   phpstan:
     level: max
     paths:
