@@ -2,6 +2,8 @@
 
 parameters:
   level: max
+  excludePaths:
+    - *Test.php
+    - *TestBase.php
   paths:
     - web/modules/custom
-    
