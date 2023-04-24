@@ -18,13 +18,14 @@ composer *args:
 alias phpunit := test
 
 test *args:
-  just _run php phpunit {{ args }}
+  just _run php phpunit --colors=always {{ args }}
 
 drush *args:
   just _exec php drush {{ args }}
 
 install *args:
   just _exec php drush site:install -y {{ args }}
+
 
 
 
