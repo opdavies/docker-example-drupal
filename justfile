@@ -3,6 +3,15 @@
 default:
   @just --list
 
+# Start the project
+start:
+  cp -v --no-clobber .env.example .env
+  docker compose up -d
+
+# Stop the project
+stop:
+  docker compose down
+
 composer *args:
   just _exec php composer {{ args }}
 
@@ -30,3 +39,5 @@ _run service command *args:
     --rm \
     -T \
     {{ service }} {{ args }}
+
+# vim: ft=just
