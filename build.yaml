@@ -61,4 +61,5 @@ dockerfile:
 
 experimental:
   createGitHubActionsConfiguration: true
+  runGitHooksBeforePush: true
   useNewDatabaseCredentials: true

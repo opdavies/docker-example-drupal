@@ -29,6 +29,30 @@ install *args:
 
 
 
+# Enable or disable Git hooks
+git-hooks command:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  case "{{ command }}" in
+    "on")
+      echo "Enabling Git hooks..."
+      git config core.hooksPath .githooks
+      ;;
+    "off")
+      echo "Disabling Git hooks..."
+      git config --unset core.hooksPath
+      ;;
+    *)
+      echo "Error: Invalid argument. Must be either 'on' or 'off'"
+      ;;
+  esac
+
+test-commit:
+  just _run php phpcs
+  just _run php phpstan analyze --no-progress --memory-limit=512M
+  just test --testdox --testsuite unit
+  just test --testdox --testsuite kernel
 
 _exec +args:
   docker compose exec {{ args }}
