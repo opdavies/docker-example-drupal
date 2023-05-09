@@ -45,16 +45,6 @@ COPY --chown=app:app tools/docker/images/php/root /
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint-php"]
 CMD ["php-fpm"]
 
-################################################################################
-
-FROM base AS test
-
-COPY --chown=app:app . .
-
-RUN parallel-lint src --no-progress \
-  && phpcs -vv \
-  && phpstan \
-  && phpunit --testdox
 
 
 
