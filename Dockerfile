@@ -29,7 +29,7 @@ RUN apt-get update -yqq \
   && apt-get install -yqq --no-install-recommends \
     git libpng-dev libzip-dev mariadb-client unzip
 
-RUN docker-php-ext-install gd pdo_mysql zip
+RUN docker-php-ext-install bcmath gd pdo_mysql zip
 
 COPY --chown=app:app phpunit.xml* ./
 
