@@ -38,7 +38,7 @@ services:
     profiles: [web]
 
   php:
-    <<: *default-app
+    <<: [, *default-app]
     build:
       context: .
       target: build
