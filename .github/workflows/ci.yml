@@ -29,6 +29,8 @@ jobs:
         run: |
           docker compose version
 
+          docker network create traefik_proxy
+
           cp --no-clobber .env.example .env
 
           docker compose build --progress plain
