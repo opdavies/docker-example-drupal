@@ -1,6 +1,6 @@
 name: docker-example-drupal
 language: php
-type: drupal-project
+type: drupal
 
 web:
   type: nginx
