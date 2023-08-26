@@ -9,7 +9,7 @@
 # the commit message.
 #
 # This also works with multiple issue IDs in the same string, e.g.
-# "OD-123 OD-456".
+# "OD-123 OD-456", or IDs on multiple lines.
 
 set -euo pipefail
 
@@ -17,9 +17,9 @@ PROJECT_DIR=$(git rev-parse --show-toplevel) # Get the root directory of the rep
 ISSUE_FILE="$PROJECT_DIR/.issue-id"
 
 if [ -f "${ISSUE_FILE}" ]; then
-  ISSUE_ID=$(cat "${ISSUE_FILE}" | sed 's/ /, /g')
+  ISSUE_IDS=$(cat "${ISSUE_FILE}" | tr '\n' ',' | tr ' ' ',' | sed 's/,$//' | sed 's/,/, /g')
 
-  if [ -n "${ISSUE_ID}" ]; then
-    sed -i.bak "s/# Refs:/Refs: $ISSUE_ID/" "$1"
+  if [ -n "${ISSUE_IDS}" ]; then
+    sed -i.bak "s/# Refs:/Refs: $ISSUE_IDS/" "$1"
   fi
 fi
