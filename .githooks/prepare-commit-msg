@@ -13,7 +13,7 @@
 
 set -euo pipefail
 
-PROJECT_DIR=$(git rev-parse --show-toplevel) # Get the root directory of the repo
+PROJECT_DIR=$(git rev-parse --show-toplevel)
 ISSUE_FILE="$PROJECT_DIR/.issue-id"
 
 if [ -f "${ISSUE_FILE}" ]; then
