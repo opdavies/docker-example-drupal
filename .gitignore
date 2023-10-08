@@ -35,5 +35,5 @@ web/themes/contrib/
 web/update.php
 web/web.config
 
-# Docker
-/docker-compose.override.yml
+.env
+docker-compose.override.yaml
