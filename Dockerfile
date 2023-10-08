@@ -28,7 +28,7 @@ USER root
 
 RUN apt-get update -yqq \
   && apt-get install -yqq --no-install-recommends \
-    git libpng-dev libjpeg-dev libzip-dev mariadb-client unzip
+    git libpng-dev libjpeg-dev libzip-dev mariadb-client unzip \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
   && apt-get clean
 
