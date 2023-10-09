@@ -35,6 +35,10 @@ web/themes/contrib/
 web/update.php
 web/web.config
 
+# Databases.
+*.sql
+*.sql.*
+
 # Docker.
 .env
 docker-compose.override.yaml
