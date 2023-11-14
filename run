@@ -112,6 +112,9 @@ function _run {
     "${service}" "${@}"
 }
 
+# Include any local tasks.
+source run.local || true
+
 TIMEFORMAT=$'\nTask completed in %3lR'
 time "${@:-help}"
 
