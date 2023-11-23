@@ -11,7 +11,9 @@
 # This also works with multiple issue IDs in the same string, e.g.
 # "OD-123 OD-456", or IDs on multiple lines.
 
-set -euo pipefail
+set -o errexit
+set -o nounset
+set -o pipefail
 
 PROJECT_DIR=$(git rev-parse --show-toplevel)
 ISSUE_FILE="$PROJECT_DIR/.issue-id"
