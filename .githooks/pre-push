@@ -4,5 +4,6 @@
 
 set -o errexit
 
+export TTY="-T"
 
 ./run test:commit
