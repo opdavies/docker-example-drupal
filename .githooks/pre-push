@@ -4,4 +4,4 @@
 
 set -euo pipefail
 
-just test-commit
+./run test:commit
