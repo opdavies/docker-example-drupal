@@ -4,4 +4,5 @@
 
 set -o errexit
 
+
 ./run test:commit
