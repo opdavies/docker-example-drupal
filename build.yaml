@@ -10,7 +10,7 @@ database:
   version: 10
 
 php:
-  version: 8.1-fpm-bullseye
+  version: 8.2-fpm-bullseye
   phpcs:
     paths:
       - web/modules/custom
