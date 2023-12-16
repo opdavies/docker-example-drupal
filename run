@@ -68,6 +68,11 @@ function help {
   printf "\nExtended help:\n  Each task has comments for general usage\n"
 }
 
+# Install Drupal.
+function install {
+  drush site:install -y "${@}"
+}
+
 function lint:dockerfile {
   docker container run --rm -i \
     hadolint/hadolint hadolint --ignore DL3008 --ignore DL3059 -t style "${@}" - < Dockerfile
