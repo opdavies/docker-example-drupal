@@ -5,6 +5,13 @@
 set -o errexit
 set -o pipefail
 
+# If we're running in CI we need to disable TTY allocation for docker compose
+# commands that enable it by default, such as exec and run.
+TTY="${TTY:-}"
+if [[ ! -t 1 ]]; then
+  TTY="-T"
+fi
+
 # Run automated tests as part of the Continuous Integration (CI) pipeline.
 function ci:test {
   lint:dockerfile
@@ -98,7 +105,7 @@ function test:commit {
 }
 
 function _exec {
-  docker compose exec -T "${@}"
+  docker compose exec ${TTY} "${@}"
 }
 
 function _run {
@@ -109,7 +116,7 @@ function _run {
     --entrypoint "${command}" \
     --no-deps \
     --rm \
-    -T \
+    ${TTY} \
     "${service}" "${@}"
 }
 
