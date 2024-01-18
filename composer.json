@@ -93,6 +93,21 @@
                 "  * Remove the plugin that prints this message:",
                 "      composer remove drupal/core-project-message"
             ]
+        },
+        "violinist": {
+            "automerge": 1,
+            "bundled_packages": {
+                "drupal/core-recommended": [
+                    "drupal/core-composer-scaffold",
+                    "drupal/core-dev",
+                    "drupal/core-project-message"
+                ]
+            },
+            "blocklist": [
+                "drupal/core-composer-scaffold",
+                "drupal/core-dev",
+                "drupal/core-project-message"
+            ]
         }
     },
     "require-dev": {
