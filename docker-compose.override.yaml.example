@@ -1,8 +1,6 @@
 services:
-  php-fpm:
+  php:
+    environment:
+      XDEBUG_MODE: ${XDEBUG_MODE:-off}
     extra_hosts:
-      - "host.docker.internal:host-gateway"
-
-  web:
-    ports:
-      - "80:80"
+      host.docker.internal: host-gateway

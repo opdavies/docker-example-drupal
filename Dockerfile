@@ -32,9 +32,13 @@ RUN apt-get update -yqq \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
   && apt-get clean
 
+RUN pecl install xdebug
+
 RUN docker-php-ext-configure gd --with-jpeg
 
 RUN docker-php-ext-install gd pdo_mysql zip
+
+RUN docker-php-ext-enable xdebug
 
 COPY --chown=app:app phpunit.xml* ./
 
