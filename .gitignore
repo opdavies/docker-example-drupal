@@ -3,6 +3,7 @@
 .editorconfig
 .env
 .gitattributes
+.phpunit.result.cache
 vendor/
 web/.csslintrc
 web/.eslintignore
@@ -38,5 +39,4 @@ web/web.config
 # Docker.
 .env
 docker-compose.override.yaml
-
 

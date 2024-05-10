@@ -34,7 +34,7 @@ RUN apt-get update -yqq \
 
 RUN docker-php-ext-configure gd --with-jpeg
 
-RUN docker-php-ext-install gd pdo_mysql zip
+RUN docker-php-ext-install gd opcache pdo_mysql zip
 
 COPY --chown=app:app phpunit.xml* ./
 

@@ -5,10 +5,12 @@ x-proxy: &default-proxy
     - default
     - web
   labels:
+    - "traefik.enable=true"
     - "traefik.docker.network=traefik_proxy"
     - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(
-        `${COMPOSE_PROJECT_NAME}.localhost`,
+        `${COMPOSE_PROJECT_NAME}.docker.localhost`,
               )"
+    - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.tls=true"
 
 x-app: &default-app
   volumes:
@@ -24,7 +26,7 @@ x-app: &default-app
         cpus: "${DOCKER_MYSQL_CPUS:-0}"
         memory: "${DOCKER_MYSQL_MEMORY:-0}"
   labels:
-    - "traefik.enabled=false"
+    - "traefik.enable=false"
   tty: true
 
 services:
@@ -63,7 +65,7 @@ services:
     env_file:
       - .env
     labels:
-      - "traefik.enabled=false"
+      - "traefik.enable=false"
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: true
     profiles: [database]
