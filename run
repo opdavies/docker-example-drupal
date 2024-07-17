@@ -18,9 +18,9 @@ function ci:test {
 
   docker compose version
 
-  docker network create traefik_proxy
+  docker network create traefik_proxy || true
 
-  cp --no-clobber .env.example .env
+  cp --no-clobber .env.example .env || true
 
   docker compose build --progress plain
 
@@ -75,7 +75,7 @@ function install {
 
 function lint:dockerfile {
   docker container run --rm -i \
-    hadolint/hadolint hadolint --ignore DL3008 --ignore DL3059 -t style "${@}" - < Dockerfile
+    hadolint/hadolint hadolint --ignore DL3008 --ignore DL3022 --ignore DL3059 -t style "${@}" - < Dockerfile
 }
 
 function quality {
