@@ -39,22 +39,34 @@ function cmd {
   docker compose exec php "${@}"
 }
 
+# Run coding standards checks.
 function coding-standards {
   cmd phpcs "${@}"
 }
 
+# Execute any Composer command.
 function composer {
   _exec php composer "${@}"
 }
 
+# Connect to the database.
+function db {
+  [[ -f ".env" ]] && source .env
+
+  docker compose exec database mysql -u"$DB_USER" -p"$DB_PASSWORD" "$DB_NAME"
+}
+
+# Execute any Drush command.
 function drush {
   _exec php drush "${@}"
 }
 
+# Disable Git hooks.
 function git-hooks:off {
   git config --unset core.hooksPath
 }
 
+# Enable Git hooks.
 function git-hooks:on {
   git config core.hooksPath .githooks
 }
@@ -73,16 +85,19 @@ function install {
   drush site:install -y "${@}"
 }
 
+# Lint the Dockerfile.
 function lint:dockerfile {
   docker container run --rm -i \
     hadolint/hadolint hadolint --ignore DL3008 --ignore DL3022 --ignore DL3059 -t style "${@}" - < Dockerfile
 }
 
+# Run code quality checks.
 function quality {
   coding-standards
   static-analysis
 }
 
+# Start the project.
 function start {
   cp -v --no-clobber .env.example .env || true
 
