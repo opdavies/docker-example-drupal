@@ -12,7 +12,7 @@ final class ExamplePageController {
   use StringTranslationTrait;
 
   public function __construct(
-    private LoggerChannelFactoryInterface $logger
+    private LoggerChannelFactoryInterface $logger,
   ) {}
 
   /**
